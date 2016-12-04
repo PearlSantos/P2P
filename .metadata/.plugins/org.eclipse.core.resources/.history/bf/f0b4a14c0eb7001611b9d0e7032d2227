@@ -1,0 +1,34 @@
+package objects;
+
+import javax.persistence.Column;
+import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotNull;
+
+import app.entities.Trip;
+
+public class Passenger {
+	private String fullName;
+	@Column
+	@NotNull(message = "Please provide your password.")
+	private String password;
+	@Column
+	@NotNull(message = "Please provide your mobile number.")
+	private String mobileNumber;
+	@Column
+	@NotNull
+	private String typeOfPassenger;
+	@Column
+	private String emailAddress;
+	@Column
+	@NotNull(message = "Please provide your barangay")
+	private String barangay;
+	@Column
+	@NotNull(message = "Please provide your city")
+	private String city;
+	@Column
+	@NotNull(message = "Please provide your zip code")
+	private String zipCode;
+	@Column
+	@ManyToOne 
+	private Trip tripAssigned = null;
+}

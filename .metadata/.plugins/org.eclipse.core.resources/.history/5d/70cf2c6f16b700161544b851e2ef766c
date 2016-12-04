@@ -1,0 +1,75 @@
+import java.awt.BorderLayout;
+import java.awt.EventQueue;
+
+import javax.annotation.PostConstruct;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+
+import objects.Passenger;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.http.Body;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.GET;
+import retrofit2.http.POST;
+import retrofit2.http.Query;
+
+public class AdminUI extends JFrame {
+
+	private JPanel contentPane;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					AdminUI frame = new AdminUI();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public AdminUI() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 450, 300);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		contentPane.setLayout(new BorderLayout(0, 0));
+		setContentPane(contentPane);
+	}
+	
+	public void start(){
+		
+	}
+	
+	private interface AdminQuery{
+		@GET("admin/viewPassengerInfo")
+		Call<Passenger> viewPassengerInfo(@Query("mobileNumber") String mobileNumber);
+		
+//		@FormUrlEncoded
+		@POST("admin/deletePassenger")
+		Call<ResponseBody> deletePassenger(@Body String mobileNumber);
+		
+		@FormUrlEncoded
+		@POST("admin/createTrip")
+		Call<ResponseBody> createTrip(@Field("tripName") String tripName,
+									@Field("ETD") String ETD,
+									@Field("ETA") String ETA,
+									@Field("routeName") String routeName,
+									@Field("plateName") String plateName);
+		@FormUrlEncoded
+		@POST("admin/updateTrip")
+		Call<ResponseBody> updateTrip
+	}
+
+}

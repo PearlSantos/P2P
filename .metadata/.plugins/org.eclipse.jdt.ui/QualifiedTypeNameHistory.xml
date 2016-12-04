@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="app.entities.Employee"/>
+<fullyQualifiedTypeName name="app.entities.HighSchool"/>
+<fullyQualifiedTypeName name="app.entities.LSStudent"/>
+<fullyQualifiedTypeName name="com.google.common.net.MediaType"/>
+<fullyQualifiedTypeName name="javax.ws.rs.QueryParam"/>
+<fullyQualifiedTypeName name="javax.ws.rs.POST"/>
+<fullyQualifiedTypeName name="javax.ws.rs.Path"/>
+<fullyQualifiedTypeName name="javax.ws.rs.GET"/>
+<fullyQualifiedTypeName name="javax.ws.rs.Consumes"/>
+<fullyQualifiedTypeName name="javax.ws.rs.Produces"/>
+<fullyQualifiedTypeName name="javax.ws.rs.core.MediaType"/>
+<fullyQualifiedTypeName name="org.springframework.beans.factory.annotation.Autowired"/>
+<fullyQualifiedTypeName name="org.springframework.stereotype.Repository"/>
+<fullyQualifiedTypeName name="app.repositories.PassengerRepositories"/>
+<fullyQualifiedTypeName name="app.repositories.BusRepository"/>
+<fullyQualifiedTypeName name="app.repositories.RouteRepository"/>
+<fullyQualifiedTypeName name="app.repositories.TripRepository"/>
+<fullyQualifiedTypeName name="org.springframework.data.jpa.repository.Modifying"/>
+<fullyQualifiedTypeName name="org.springframework.data.jpa.repository.Query"/>
+<fullyQualifiedTypeName name="javax.persistence.ManyToOne"/>
+<fullyQualifiedTypeName name="objects.Passenger"/>
+<fullyQualifiedTypeName name="retrofit2.http.Body"/>
+<fullyQualifiedTypeName name="retrofit2.http.Field"/>
+<fullyQualifiedTypeName name="retrofit2.http.FormUrlEncoded"/>
+<fullyQualifiedTypeName name="javax.annotation.PostConstruct"/>
+<fullyQualifiedTypeName name="retrofit2.http.POST"/>
+<fullyQualifiedTypeName name="app.entities.Passenger"/>
+<fullyQualifiedTypeName name="app.entities.Bus"/>
+<fullyQualifiedTypeName name="app.entities.Route"/>
+<fullyQualifiedTypeName name="app.repositories.HubsRepository"/>
+<fullyQualifiedTypeName name="app.entities.Hub"/>
+<fullyQualifiedTypeName name="app.entities.Trip"/>
+<fullyQualifiedTypeName name="javax.persistence.Entity"/>
+<fullyQualifiedTypeName name="javax.persistence.JoinColumn"/>
+<fullyQualifiedTypeName name="javax.persistence.OneToOne"/>
+<fullyQualifiedTypeName name="org.springframework.stereotype.Component"/>
+<fullyQualifiedTypeName name="javax.persistence.OneToMany"/>
+<fullyQualifiedTypeName name="javax.ws.rs.FormParam"/>
+<fullyQualifiedTypeName name="okhttp3.ResponseBody"/>
+</qualifiedTypeNameHistroy>

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Move 2 elements to &apos;P2PServer/src&apos;&#x0D;&#x0A;- Original project: &apos;DragonRESTReceiver&apos;&#x0D;&#x0A;- Destination element: &apos;P2PServer/src&apos;&#x0D;&#x0A;- Original elements:&#x0D;&#x0A;     DragonDriver.java&#x0D;&#x0A;     JerseyStarter.java&#x0D;&#x0A;- Update references to refactored element" description="Move compilation units" destination="=P2PServer/src" element1="/src&lt;{DragonDriver.java" element2="/src&lt;{JerseyStarter.java" files="0" flags="589830" folders="0" id="org.eclipse.jdt.ui.move" policy="org.eclipse.jdt.ui.moveResources" qualified="false" references="true" stamp="1480517746249" units="2" version="1.0"/>
+</session>

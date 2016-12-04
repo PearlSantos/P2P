@@ -1,0 +1,67 @@
+package app.rest;
+
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import app.entities.Bus;
+import app.entities.Passenger;
+import app.entities.Trip;
+import app.repositories.BusRepository;
+import app.repositories.PassengerRepository;
+import app.repositories.RouteRepository;
+import app.repositories.TripRepository;
+
+@Component
+@Path("/client")
+public class ClientServer {
+	
+	@Autowired
+	private PassengerRepository passengerRepo;
+	@Autowired
+	private BusRepository busRepo;
+	@Autowired
+	private RouteRepository routeRepo;
+	@Autowired
+	private TripRepository tripRepo;
+
+	@POST
+	@Path("/register")
+	public void register(String fullName, String password, 
+						String mobileNumber, String typeOfPassenger, 
+						String emailAddress, String barangay, 
+						String city, String zipCode){
+		Passenger p = new Passenger();
+		p.setFullName(fullName);
+		p.setPassword(password);
+		p.setMobileNumber(mobileNumber);
+		p.setTypeOfPassenger(typeOfPassenger);
+		p.setEmailAddress(emailAddress);
+		p.setBarangay(barangay);
+		p.setCity(city);
+		p.setZipCode(zipCode);
+		passengerRepo.save(p);
+	}
+	
+	@POST
+	@Path("/reserveSeat")
+	public void reserveSeat(String tripName){
+		Trip trip = tripRepo.findByTripName(tripName);
+		Bus b = trip.getAssignedBus();
+		b.setCapacity(b.getCapacity()-1);
+	}
+	
+	@POST
+	@Path("/cancelTrip")
+	public void cancelTrip(Trip trip){
+		
+	}
+	
+	@POST
+	@Path("/updateMobileNumber")
+	public void updateMobileNumber(){
+		//updates client's mobile number
+	}
+}

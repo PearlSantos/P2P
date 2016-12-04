@@ -1,0 +1,17 @@
+package app.repositories;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import app.entities.Bus;
+import app.entities.Trip;
+
+@Repository
+public interface TripRepository extends JpaRepository<Trip, Long>{
+	public Trip findByTripName(String tripName);
+	
+	@Modifying
+	@Query("update User u set u.firstname = ?1 where u.lastname = ?2")
+	int setFixedFirstnameFor(String firstname, String lastname);
+
+}

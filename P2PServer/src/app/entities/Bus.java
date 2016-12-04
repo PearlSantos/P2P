@@ -1,0 +1,50 @@
+package app.entities;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
+
+@Entity
+public class Bus {
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column
+	private Long busId;
+	@NotNull
+	@Column
+	private String plateNumber;
+	@NotNull
+	@Column
+	private int capacity;
+	@NotNull
+	@Column
+	private int numOfAvailableSeats;
+	public Long getBusId() {
+		return busId;
+	}
+	public void setBusId(Long busId) {
+		this.busId = busId;
+	}
+	public String getPlateNumber() {
+		return plateNumber;
+	}
+	public void setPlateNumber(String plateNumber) {
+		this.plateNumber = plateNumber;
+	}
+	public int getCapacity() {
+		return capacity;
+	}
+	public void setCapacity(int capacity) {
+		this.capacity = capacity;
+	}
+	public int getNumOfAvailableSeats() {
+		return numOfAvailableSeats;
+	}
+	public void setNumOfAvailableSeats(int numOfAvailableSeats) {
+		this.numOfAvailableSeats = numOfAvailableSeats;
+	}
+	
+}

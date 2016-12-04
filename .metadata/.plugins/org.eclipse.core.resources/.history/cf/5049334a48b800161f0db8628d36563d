@@ -1,0 +1,38 @@
+package app.entities;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
+
+@Entity
+public class Route {
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column
+	private Long routeId;
+	@Column
+	@NotNull
+	private String routeName;
+	@Column
+	@NotNull
+	private Hubs startingHub;
+	@Column
+	@NotNull
+	private Hubs endingHub;
+	public Long getRouteId() {
+		return routeId;
+	}
+	public void setRouteId(Long routeId) {
+		this.routeId = routeId;
+	}
+	public String getRouteName() {
+		return routeName;
+	}
+	public void setRouteName(String routeName) {
+		this.routeName = routeName;
+	}
+	
+}

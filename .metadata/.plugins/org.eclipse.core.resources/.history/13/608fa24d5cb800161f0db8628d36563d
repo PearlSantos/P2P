@@ -1,0 +1,51 @@
+package app.entities;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.validation.constraints.NotNull;
+
+@Entity
+public class Route {
+	@Id
+	@Column
+	private String routeId;
+	@Column
+	@NotNull
+	private String routeName;
+	@JoinColumn
+	@NotNull
+	private Hub startingHub;
+//	@Column
+//	@NotNull
+//	private Hub endingHub;
+	
+	public String getRouteId() {
+		return routeId;
+	}
+	public void setRouteId(String routeId) {
+		this.routeId = routeId;
+	}
+	public String getRouteName() {
+		return routeName;
+	}
+	public void setRouteName(String routeName) {
+		this.routeName = routeName;
+	}
+	public Hub getStartingHub() {
+		return startingHub;
+	}
+	public void setStartingHub(Hub startingHub) {
+		this.startingHub = startingHub;
+	}
+//	public Hub getEndingHub() {
+//		return endingHub;
+//	}
+//	public void setEndingHub(Hub endingHub) {
+//		this.endingHub = endingHub;
+//	}
+	
+}

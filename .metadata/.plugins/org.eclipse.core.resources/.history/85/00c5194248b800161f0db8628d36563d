@@ -1,0 +1,42 @@
+package app.entities;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotNull;
+
+@Entity
+public class Hub {
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column
+	private Long hubId;
+	@Column
+	@NotNull
+	private String nameOfPlace;
+	@Column
+	@ManyToOne
+	private Route routeAssigned;
+	public Long getHubId() {
+		return hubId;
+	}
+	public void setHubId(Long hubId) {
+		this.hubId = hubId;
+	}
+	public String getNameOfPlace() {
+		return nameOfPlace;
+	}
+	public void setNameOfPlace(String nameOfPlace) {
+		this.nameOfPlace = nameOfPlace;
+	}
+	public Route getRouteAssigned() {
+		return routeAssigned;
+	}
+	public void setRouteAssigned(Route routeAssigned) {
+		this.routeAssigned = routeAssigned;
+	}
+	
+}
