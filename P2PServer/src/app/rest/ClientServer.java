@@ -52,7 +52,8 @@ public class ClientServer {
 		Trip trip = tripRepo.findByTripName(tripName);
 		Bus b = trip.getAssignedBus();
 		int currSeatNumber = b.getNumOfAvailableSeats();
-		b.setCapacity(currSeatNumber-1);
+		busRepo.setNumberOfAvailableSeats(currSeatNumber-1, b.getPlateNumber());
+//		b.setCapacity(currSeatNumber-1);
 		passengerRepo.setTrip(trip, mobileNumber);
 	}
 	
@@ -63,7 +64,8 @@ public class ClientServer {
 		Trip trip = tripRepo.findByTripName(tripName);
 		Bus b = trip.getAssignedBus();
 		int currSeatNumber = b.getNumOfAvailableSeats();
-		b.setCapacity(currSeatNumber+1);
+//		b.setCapacity(currSeatNumber+1);
+		busRepo.setNumberOfAvailableSeats(currSeatNumber+1, b.getPlateNumber());
 		passengerRepo.setTrip(null, mobileNumber);
 	}
 	

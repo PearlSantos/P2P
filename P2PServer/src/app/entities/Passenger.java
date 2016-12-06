@@ -95,7 +95,19 @@ public class Passenger {
 		this.tripAssigned = tripAssigned;
 	}
 	public String getTripAssignedName() {
-		return tripAssigned.getTripName();
+		if(tripAssigned != null){
+			return tripAssigned.getTripName();
+		}
+		else{
+			return "";
+		}
+		
+	}
+	@Override
+	public String toString() {
+		return fullName + "," + password + ","
+				+ mobileNumber + "," + emailAddress + "," + barangay + "," + city
+				+ "," + zipCode + "," + tripAssigned.getTripName();
 	}
 	
 	

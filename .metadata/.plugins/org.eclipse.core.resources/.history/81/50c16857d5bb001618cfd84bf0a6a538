@@ -1,0 +1,14 @@
+package helpers;
+
+import javax.swing.JPanel;
+
+public class CreateTripPanel extends JPanel {
+
+	/**
+	 * Create the panel.
+	 */
+	public CreateTripPanel() {
+
+	}
+
+}

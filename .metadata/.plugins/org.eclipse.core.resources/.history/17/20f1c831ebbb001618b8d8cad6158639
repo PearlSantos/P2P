@@ -1,0 +1,102 @@
+package helpers;
+
+import javax.swing.JPanel;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+import javax.swing.JComboBox;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
+public class CreateTripPanel extends JPanel {
+	private JTextField fullName;
+	private JTextField textField;
+	private JTextField textField_1;
+	private JTextField textField_2;
+	private JTextField textField_3;
+	private JTextField textField_4;
+	private JTextField textField_5;
+
+	/**
+	 * Create the panel.
+	 */
+	public CreateTripPanel() {
+		setLayout(null);
+		
+		JLabel lblNewLabel = new JLabel("Full Name:");
+		lblNewLabel.setBounds(10, 11, 50, 14);
+		add(lblNewLabel);
+		
+		fullName = new JTextField();
+		fullName.setBounds(66, 8, 239, 20);
+		add(fullName);
+		fullName.setColumns(10);
+		
+		JButton btnSave = new JButton("SAVE");
+		btnSave.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnSave.setBounds(67, 191, 198, 23);
+		add(btnSave);
+		
+		JButton btnCancel = new JButton("CANCEL");
+		btnCancel.setBounds(66, 219, 198, 23);
+		add(btnCancel);
+		
+		JLabel lblMobile = new JLabel("Mobile #:");
+		lblMobile.setBounds(10, 35, 50, 14);
+		add(lblMobile);
+		
+		textField = new JTextField();
+		textField.setColumns(10);
+		textField.setBounds(66, 32, 239, 20);
+		add(textField);
+		
+		JLabel lblPassword = new JLabel("Password:");
+		lblPassword.setBounds(10, 59, 50, 14);
+		add(lblPassword);
+		
+		textField_1 = new JTextField();
+		textField_1.setColumns(10);
+		textField_1.setBounds(66, 56, 239, 20);
+		add(textField_1);
+		
+		JLabel lblEmail = new JLabel("Email:");
+		lblEmail.setBounds(10, 83, 50, 14);
+		add(lblEmail);
+		
+		textField_2 = new JTextField();
+		textField_2.setColumns(10);
+		textField_2.setBounds(66, 80, 239, 20);
+		add(textField_2);
+		
+		JLabel label = new JLabel("Email:");
+		label.setBounds(10, 108, 50, 14);
+		add(label);
+		
+		textField_3 = new JTextField();
+		textField_3.setColumns(10);
+		textField_3.setBounds(66, 105, 239, 20);
+		add(textField_3);
+		
+		JLabel label_1 = new JLabel("Email:");
+		label_1.setBounds(10, 135, 50, 14);
+		add(label_1);
+		
+		textField_4 = new JTextField();
+		textField_4.setColumns(10);
+		textField_4.setBounds(66, 132, 239, 20);
+		add(textField_4);
+		
+		JLabel label_2 = new JLabel("Email:");
+		label_2.setBounds(10, 163, 50, 14);
+		add(label_2);
+		
+		textField_5 = new JTextField();
+		textField_5.setColumns(10);
+		textField_5.setBounds(66, 160, 239, 20);
+		add(textField_5);
+
+	}
+}

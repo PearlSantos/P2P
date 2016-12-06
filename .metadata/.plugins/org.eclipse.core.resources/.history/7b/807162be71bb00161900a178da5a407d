@@ -1,0 +1,63 @@
+import java.io.IOException;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+import okhttp3.OkHttpClient;
+import okhttp3.ResponseBody;
+import okhttp3.logging.HttpLoggingInterceptor;
+import retrofit2.Call;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
+public class ClientUI {
+	public start(){
+		HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
+		interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+		OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).build();		
+				
+		
+		Gson gson = new GsonBuilder().create();
+		Retrofit retrofit = new Retrofit.Builder()
+			.client(client)
+			.baseUrl("http://localhost:9999/") // a legit base url is needed regardless
+			.addConverterFactory(GsonConverterFactory.create(gson))
+			.build();
+	//service class
+	
+		AdminQuery query = retrofit.create(AdminQuery.class);
+
+		Call<ResponseBody> call1 = query.viewTripDetails("Nevada");
+		Call<ResponseBody> call2 = query.updateMobileNumber("9213465467", "9213460000");
+//		Call<ResponseBody> call3 = query.deleteTrip("Temple Drive to Ateneo (6:15 AM)");
+		
+		/**
+		*IDK YET WHERE TO SHOW THE RESULTS OMG
+		**/
+		Response<ResponseBody> response1;
+		Response<ResponseBody> response2;
+		Response<ResponseBody> response3;
+		String reply = "";
+		try {
+			response1 = call1.execute();
+			System.out.println(response1.message());
+			System.out.println(response1.body().string());
+			response2 = call2.execute();
+			System.out.println(response2.message());
+//			response3 = call3.execute();
+//			System.out.println(response3.message());
+			
+//			reply = response.body().string();
+//			reply = response.message();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+	
+	public static void main(String args[]){
+		
+	}
+}

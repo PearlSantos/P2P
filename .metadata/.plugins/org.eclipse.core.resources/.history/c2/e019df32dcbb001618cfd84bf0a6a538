@@ -1,0 +1,78 @@
+package helpers;
+
+import javax.swing.JPanel;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+import javax.swing.JComboBox;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
+public class CreateTripPanel extends JPanel {
+	private JTextField textField;
+	private JTextField textField_1;
+	private JTextField textField_2;
+
+	/**
+	 * Create the panel.
+	 */
+	public CreateTripPanel() {
+		setLayout(null);
+		
+		JLabel lblNewLabel = new JLabel("Name:");
+		lblNewLabel.setBounds(10, 11, 46, 14);
+		add(lblNewLabel);
+		
+		textField = new JTextField();
+		textField.setBounds(66, 8, 239, 20);
+		add(textField);
+		textField.setColumns(10);
+		
+		JLabel lblNewLabel_1 = new JLabel("ETD:");
+		lblNewLabel_1.setBounds(10, 48, 46, 14);
+		add(lblNewLabel_1);
+		
+		textField_1 = new JTextField();
+		textField_1.setBounds(66, 45, 86, 20);
+		add(textField_1);
+		textField_1.setColumns(10);
+		
+		JLabel lblEta = new JLabel("ETA");
+		lblEta.setBounds(162, 48, 46, 14);
+		add(lblEta);
+		
+		textField_2 = new JTextField();
+		textField_2.setColumns(10);
+		textField_2.setBounds(219, 45, 86, 20);
+		add(textField_2);
+		
+		JLabel lblNewLabel_2 = new JLabel("Route:");
+		lblNewLabel_2.setBounds(10, 83, 46, 14);
+		add(lblNewLabel_2);
+		
+		JComboBox comboBox = new JComboBox();
+		comboBox.setBounds(66, 80, 239, 20);
+		add(comboBox);
+		
+		JLabel lblBus = new JLabel("Bus:");
+		lblBus.setBounds(10, 114, 46, 14);
+		add(lblBus);
+		
+		JComboBox comboBox_1 = new JComboBox();
+		comboBox_1.setBounds(66, 111, 239, 20);
+		add(comboBox_1);
+		
+		JButton btnSave = new JButton("SAVE");
+		btnSave.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnSave.setBounds(66, 142, 198, 23);
+		add(btnSave);
+		
+		JButton btnCancel = new JButton("CANCEL");
+		btnCancel.setBounds(66, 176, 198, 23);
+		add(btnCancel);
+
+	}
+}

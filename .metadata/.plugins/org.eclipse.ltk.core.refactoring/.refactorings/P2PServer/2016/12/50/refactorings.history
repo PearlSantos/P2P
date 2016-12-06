@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Move type &apos;app.rest.AdminServer.MyPassenger&apos; in &apos;app.rest.AdminServer&apos; to new file&#x0D;&#x0A;- Original project: &apos;P2PServer&apos;&#x0D;&#x0A;- Original element: &apos;app.rest.AdminServer.MyPassenger&apos;&#x0D;&#x0A;- Field name: &apos;adminServer&apos;&#x0D;&#x0A;- Declare field &apos;final&apos;" description="Move type &apos;MyPassenger&apos; to new file" field="false" fieldName="adminServer" final="true" flags="786438" id="org.eclipse.jdt.ui.move.inner" input="/src&lt;app.rest{AdminServer.java[AdminServer[MyPassenger" mandatory="false" possible="false" stamp="1480915467241" version="1.0"/>
+</session>

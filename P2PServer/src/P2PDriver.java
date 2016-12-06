@@ -3,7 +3,7 @@ public class P2PDriver
 {
 	public static void main(String[] args) throws Exception
 	{
-		int portNumber = 9999;
+		int portNumber = 9998;
 		String restClassPackage = "app.rest";
 		String applicationContext = "applicationContext_jpa.xml";
 

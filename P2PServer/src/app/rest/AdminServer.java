@@ -1,5 +1,8 @@
 package app.rest;
 
+
+import java.util.List;
+
 import javax.ws.rs.Consumes;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
@@ -38,21 +41,24 @@ public class AdminServer {
 	@POST
 	@Path("/viewPassengerInfo")
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-	@Produces(MediaType.APPLICATION_JSON)
-	public MyPassenger viewPassengerInfo(@FormParam("mobileNumber") String mobileNumber){
+	@Produces(MediaType.TEXT_PLAIN)
+	public String viewPassengerInfo(@FormParam("mobileNumber") String mobileNumber){
 		Passenger p = passengerRepo.findByMobileNumber(mobileNumber);
 		System.out.println(p.getFullName() + " yehey");
-//		return p.getFullName();
-		MyPassenger mp = new MyPassenger();
-		mp.setFullName(p.getFullName());
-		mp.setPassword(p.getPassword());
-		mp.setBarangay(p.getBarangay());
-		mp.setCity(p.getCity());
-		mp.setEmailAddress(p.getEmailAddress());
-		mp.setMobileNumber(p.getMobileNumber());
-		mp.setTripAssigned(p.getTripAssigned().getTripName());
-		mp.setZipCode(p.getZipCode());
-		return mp;
+		return p.toString();
+		
+		
+		
+//		MyPassenger mp = new MyPassenger();
+//		mp.setFullName(p.getFullName());
+//		mp.setPassword(p.getPassword());
+//		mp.setBarangay(p.getBarangay());
+//		mp.setCity(p.getCity());
+//		mp.setEmailAddress(p.getEmailAddress());
+//		mp.setMobileNumber(p.getMobileNumber());
+//		mp.setTripAssigned(p.getTripAssigned().getTripName());
+//		mp.setZipCode(p.getZipCode());
+//		return mp;
 	}
 	
 	@POST
@@ -60,20 +66,22 @@ public class AdminServer {
 	@Path("/deletePassenger")
 	public void deletePassenger(@FormParam("mobileNumber") String mobileNumber){
 		System.out.println(mobileNumber);
-		passengerRepo.deletePassenger(mobileNumber);
+		passengerRepo.deletePassengerByMobileNumber(mobileNumber);
+//		Passenger p = passengerRepo.findByMobileNumber(mobileNumber);
+//		passengerRepo.delete(p);
 	}
 	
 	@POST
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	@Path("/createTrip")
 	public void createTrip(@FormParam("tripName") String tripName, @FormParam("ETD") String ETD, @FormParam("ETA") String ETA,
-			@FormParam("routeName") String routeName, @FormParam("plateName") String plateNumber){
+			@FormParam("routeName") String routeName, @FormParam("plateNumber") String plateNumber){
 		Bus b = busRepo.findByPlateNumber(plateNumber);
 		Route r = routeRepo.findByRouteName(routeName);
 		Trip t = new Trip();
 //		tripName, ETD, ETA, r, b
 		t.setTripName(tripName);
-		t.setETA(ETD);
+		t.setETD(ETD);
 		t.setETA(ETA);
 		t.setAssignedRoute(r);
 		t.setAssignedBus(b);
@@ -98,9 +106,59 @@ public class AdminServer {
 	@POST
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	@Path("/deleteTrip")
-	public void deleteTrip(String tripName){
-		Trip t = tripRepo.findByTripName(tripName);
-		tripRepo.delete(t);
+	public void deleteTrip(@FormParam("tripName") String tripName){
+		System.out.println(tripName);
+		tripRepo.deleteTripByTripName(tripName);
+	}
+	
+	
+	@POST
+	@Path("/retrieveAllPassengers")
+	public String retrieveAllPassengers(){
+		List<Passenger> pass = passengerRepo.findAll();
+		String result = "";
+		for(int i=0; i < pass.size(); i++){
+			if(i == pass.size()-1){
+				result = result + pass.get(i).getMobileNumber();
+			}
+			else{
+				result = result + pass.get(i).getMobileNumber() + ",";
+			}
+		}
+		return result;
+	}
+	
+	@POST
+	@Path("/retrieveAllRoutes")
+	public String retrieveAllRoutes(){
+		List<Route> route = routeRepo.findAll();
+		String result = "";
+		for(int i=0; i < route.size(); i++){
+			if(i == route.size()-1){
+				result = result + route.get(i).getRouteName();
+			}
+			else{
+				result = result + route.get(i).getRouteName() + ",";
+			}
+		}
+		System.out.println("RESULT AGGGHHH " + result);
+		return result;
+	}
+	
+	@POST
+	@Path("/retrieveAllBuses")
+	public String retrieveAllBuses(){
+		List<Bus> bus = busRepo.findAll();
+		String result = "";
+		for(int i=0; i < bus.size(); i++){
+			if(i == bus.size()-1){
+				result = result + bus.get(i).getPlateNumber();
+			}
+			else{
+				result = result + bus.get(i).getPlateNumber() + ",";
+			}
+		}
+		return result;
 	}
 	
 //	@POST
@@ -108,78 +166,6 @@ public class AdminServer {
 //	public void sendUpdates(@FormParam("tripName") String message, @FormParam("tripName") String[] mobileNumbers){
 //		//OMG Cel paano to
 //	}
-	
-	
 
-
-
-
-	class MyPassenger {
-		public MyPassenger() {
-			
-		}
-		String fullName;
-		String password;
-		String mobileNumber;
-		String emailAddress;
-		String barangay;
-		String city;
-		String zipCode;
-		String tripAssigned;
-		public String getFullName() {
-			return fullName;
-		}
-		public void setFullName(String fullName) {
-			this.fullName = fullName;
-		}
-		public String getPassword() {
-			return password;
-		}
-		public void setPassword(String password) {
-			this.password = password;
-		}
-		public String getMobileNumber() {
-			return mobileNumber;
-		}
-		public void setMobileNumber(String mobileNumber) {
-			this.mobileNumber = mobileNumber;
-		}
-//		public String getTypeOfPassenger() {
-//			return typeOfPassenger;
-//		}
-//		public void setTypeOfPassenger(String typeOfPassenger) {
-//			this.typeOfPassenger = typeOfPassenger;
-//		}
-		public String getEmailAddress() {
-			return emailAddress;
-		}
-		public void setEmailAddress(String emailAddress) {
-			this.emailAddress = emailAddress;
-		}
-		public String getBarangay() {
-			return barangay;
-		}
-		public void setBarangay(String barangay) {
-			this.barangay = barangay;
-		}
-		public String getCity() {
-			return city;
-		}
-		public void setCity(String city) {
-			this.city = city;
-		}
-		public String getZipCode() {
-			return zipCode;
-		}
-		public void setZipCode(String zipCode) {
-			this.zipCode = zipCode;
-		}
-		public String getTripAssigned() {
-			return tripAssigned;
-		}
-		public void setTripAssigned(String tripAssigned) {
-			this.tripAssigned = tripAssigned;
-		}
-	}
 
 }

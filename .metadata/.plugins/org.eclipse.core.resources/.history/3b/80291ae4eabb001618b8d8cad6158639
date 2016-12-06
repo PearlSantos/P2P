@@ -1,0 +1,62 @@
+package helpers;
+
+import javax.swing.JPanel;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+import javax.swing.JComboBox;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
+public class CreateTripPanel extends JPanel {
+	private JTextField tripName;
+	private JTextField textField;
+	private JTextField textField_1;
+
+	/**
+	 * Create the panel.
+	 */
+	public CreateTripPanel() {
+		setLayout(null);
+		
+		JLabel lblNewLabel = new JLabel("Full Name:");
+		lblNewLabel.setBounds(10, 11, 50, 14);
+		add(lblNewLabel);
+		
+		tripName = new JTextField();
+		tripName.setBounds(66, 8, 239, 20);
+		add(tripName);
+		tripName.setColumns(10);
+		
+		JButton btnSave = new JButton("SAVE");
+		btnSave.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnSave.setBounds(66, 142, 198, 23);
+		add(btnSave);
+		
+		JButton btnCancel = new JButton("CANCEL");
+		btnCancel.setBounds(66, 176, 198, 23);
+		add(btnCancel);
+		
+		JLabel lblMobile = new JLabel("Mobile #:");
+		lblMobile.setBounds(10, 35, 50, 14);
+		add(lblMobile);
+		
+		textField = new JTextField();
+		textField.setColumns(10);
+		textField.setBounds(66, 32, 239, 20);
+		add(textField);
+		
+		JLabel lblPassword = new JLabel("Password:");
+		lblPassword.setBounds(10, 59, 50, 14);
+		add(lblPassword);
+		
+		textField_1 = new JTextField();
+		textField_1.setColumns(10);
+		textField_1.setBounds(66, 56, 239, 20);
+		add(textField_1);
+
+	}
+}

@@ -63,4 +63,11 @@ public class Trip {
 	public void setAssignedBus(Bus assignedBus) {
 		this.assignedBus = assignedBus;
 	}
+	@Override
+	public String toString() {
+		return tripName + "," + ETD + "," + ETA
+				+ "," + assignedRoute.getRouteName() + "," + assignedBus.getPlateNumber();
+	}
+	
+	
 }

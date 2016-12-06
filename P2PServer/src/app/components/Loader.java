@@ -2,6 +2,7 @@ package app.components;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.util.List;
 
 import javax.annotation.PostConstruct;
 
@@ -36,34 +37,7 @@ public class Loader {
 	@PostConstruct
 	public void load() throws Exception
 	{
-		if (passengerRepo.count()==0)
-		{
-			System.out.println("loading...");
-			// load stuff
-			
-			FileReader fr = new FileReader("passengerPopulator.csv");
-			BufferedReader br = new BufferedReader(fr);
-			
-			String currentLine = "";
-			
-			while ((currentLine = br.readLine())!=null)
-			{
-				// NOTE: this will fail for The Lion, the Witch and the Wardrobe ... I will ignore :)
-				String[] data = currentLine.split(",");
-				
-				Passenger p = new Passenger();
-				p.setFullName(data[0]);
-				p.setPassword(data[1]);
-				p.setMobileNumber(data[2]);
-				p.setEmailAddress(data[3]);
-				p.setBarangay(data[4]);
-				p.setCity(data[5]);
-				p.setZipCode(data[6]);
-				
-				
-				passengerRepo.save(p);
-			}
-		}
+		
 		
 		if(busRepo.count()==0){
 			FileReader fr = new FileReader("busPopulator.csv");
@@ -168,10 +142,37 @@ public class Loader {
 					tripRepo.save(t);
 			}
 	}
+			
+			if (passengerRepo.count()==0)
+			{
+				System.out.println("loading...");
+				// load stuff
+				
+				FileReader fr = new FileReader("passengerPopulator.csv");
+				BufferedReader br = new BufferedReader(fr);
+				
+				String currentLine = "";
+				
+				while ((currentLine = br.readLine())!=null)
+				{
+					// NOTE: this will fail for The Lion, the Witch and the Wardrobe ... I will ignore :)
+					String[] data = currentLine.split(",");
+					
+					Passenger p = new Passenger();
+					p.setFullName(data[0]);
+					p.setPassword(data[1]);
+					p.setMobileNumber(data[2]);
+					p.setEmailAddress(data[3]);
+					p.setBarangay(data[4]);
+					p.setCity(data[5]);
+					p.setZipCode(data[6]);
+					
+					
+					passengerRepo.save(p);
+				}
+			}
 //			tester code
-			Passenger p = passengerRepo.findByMobileNumber("9213465468");
-			String name = p.getFullName();
-			System.out.println(name);
+//			
 //			
 	}
 	
@@ -179,4 +180,6 @@ public class Loader {
 				
 
 	
+
+
 
