@@ -16,6 +16,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.ws.rs.FormParam;
@@ -49,6 +51,8 @@ import javax.swing.JList;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.event.ActionEvent;
 
 
@@ -57,14 +61,17 @@ public class AdminUI {
 	private AdminQuery query;
 //	private JTextField textField;
 	private JLabel label;
-	 private JFrame mainFrame;
-	 private JPanel controlPanel;
-	 private JList list;
-	 private JScrollPane scrollPane;
+	private JFrame mainFrame;
+	private JPanel controlPanel;
+	private JList list;
+	private JScrollPane scrollPane;
 	private JButton btnCreateNewTrip;
 	private JButton btnSendUpdates;
 	private JDialog dialog;
 	private CreateTripPanel ctPanel;
+	private DefaultListModel df = new DefaultListModel();
+	private TripMouseListener tml = new TripMouseListener();
+	private PassengerMouseListener pml = new PassengerMouseListener();
 
 	/**
 	 * Launch the application.
@@ -75,7 +82,7 @@ public class AdminUI {
 				try {
 					AdminUI frame = new AdminUI();
 //					frame.showListDemo();
-//					frame.start();
+					frame.start();
 //					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -96,8 +103,8 @@ public class AdminUI {
 	
 	private void prepareGUI(){
 		mainFrame = new JFrame("P2P Admin");
-	      mainFrame.setSize(616,456);
-	      mainFrame.getContentPane().setLayout(new BorderLayout());
+	    mainFrame.setSize(616,456);
+	    mainFrame.getContentPane().setLayout(new BorderLayout());
 	      mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	      mainFrame.setBounds(100, 100, 617, 456);
 	      
@@ -140,25 +147,22 @@ public class AdminUI {
 	      lblShow.setBounds(10, 11, 46, 14);
 	      north.add(lblShow);
 	      
-	      final DefaultListModel df = createModel("Trips");
+	      createModel("Trips");
 	      
 	      list = new JList(df);
 	      list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 	      list.setSelectedIndex(0);
 	      list.setVisibleRowCount(10);
-	      
-	      ListSelectionModel lsm = list.getSelectionModel();
+	      list.addMouseListener(tml);
+//	      ListSelectionModel lsm = list.getSelectionModel();
 //		  TripListSelectionHandler tsh = new TripListSelectionHandler();
-		  lsm.addListSelectionListener(new TripListSelectionHandler());
+//		  lsm.addListSelectionListener(new TripListSelectionHandler());
 
 	      scrollPane = new JScrollPane(list);
 	      label = new JLabel("Trips", JLabel.CENTER);
 	      label.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
 	      scrollPane.setColumnHeaderView(label);
 
-//	      
-//	      scrollPane.setBounds(10, 28, 317, 222);
-//	      scrollPane.setBounds(10, 28, 404, 222);
 	      scrollPane.setBounds(10, 8, 581, 283);
 	      controlPanel.add(scrollPane);
 	      
@@ -169,28 +173,29 @@ public class AdminUI {
 	
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-//					String[] temp = createModel(comboBox.getSelectedItem().toString());
-					DefaultListModel df = createModel(comboBox.getSelectedItem().toString());
-//					ListSelectionModel lsm = list.getSelectionModel();
-//					System.out.println("SELECTION: " + lsm.getSelectionMode());
-//					TripListSelectionHandler tsh = new TripListSelectionHandler();
-				    
-					label.setText(comboBox.getSelectedItem().toString());
-					scrollPane.setColumnHeaderView(label);
-					if(comboBox.getSelectedItem().toString().equals("Trips")){
+				createModel(comboBox.getSelectedItem().toString());
+			    
+				label.setText(comboBox.getSelectedItem().toString());
+				scrollPane.setColumnHeaderView(label);
+				
+				if(comboBox.getSelectedItem().toString().equals("Trips")){
 //						lsm.addListSelectionListener(new TripListSelectionHandler());
-						btnCreateNewTrip.setEnabled(true);
-						btnSendUpdates.setEnabled(false);
-					}
-					else{
+					list.removeMouseListener(pml);
+					list.addMouseListener(tml);
+					btnCreateNewTrip.setEnabled(true);
+					btnSendUpdates.setEnabled(false);
+				}
+				else{
 //						ListSelectionModel lsm = list.getSelectionModel();
 //					    lsm.addListSelectionListener(new PassengerListSelectionHandler());
-						btnCreateNewTrip.setEnabled(false);
-						btnSendUpdates.setEnabled(true);
-					}
-					list.setModel(df);
-					
+					list.removeMouseListener(tml);
+					list.addMouseListener(pml);
+					btnCreateNewTrip.setEnabled(false);
+					btnSendUpdates.setEnabled(true);
 				}
+				list.setModel(df);
+				
+			}
 				
 			});
 			north.add(comboBox);
@@ -205,16 +210,16 @@ public class AdminUI {
 
 //	      headerLabel.setText("Control in action: JList"); 
 
-	      final DefaultListModel df = createModel("Trips");
+	      createModel("Trips");
 	      System.out.println(df.getElementAt(0) + " yehey");
 	      list = new JList(df);
 	      list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 	      list.setSelectedIndex(0);
 	      list.setVisibleRowCount(10);
 	      
-	      ListSelectionModel lsm = list.getSelectionModel();
+//	      ListSelectionModel lsm = list.getSelectionModel();
 //		  TripListSelectionHandler tsh = new TripListSelectionHandler();
-		  lsm.addListSelectionListener(new TripListSelectionHandler());
+//		  lsm.addListSelectionListener(new TripListSelectionHandler());
 
 	      scrollPane = new JScrollPane(list);
 	      label = new JLabel("Trips", JLabel.CENTER);
@@ -256,6 +261,39 @@ public class AdminUI {
 	      controlPanel.add(btnSendUpdates);
 //	      mainFrame.setVisible(true);             
 	   }
+	   
+//	   public void setToPassenger(){
+//		   UpdatePassengerPanel myPanel =  new UpdatePassengerPanel();
+//	        
+//	        Call<ResponseBody> retrieve;
+//			Response<ResponseBody> result;
+//			retrieve = query.viewPassengerInfo((String)list.getSelectedValue());
+//			try {
+//				result = retrieve.execute();
+//				res = result.body().string();
+//			} catch (IOException ex) {
+//				// TODO Auto-generated catch block
+//				ex.printStackTrace();
+//			}
+//			
+//			String[] temp = res.split(",");
+//			myPanel.setValues(temp[0], temp[1], temp[2], temp[3], temp[4], temp[5], temp[6]);
+//       	
+////       }
+//       
+//	       dialog = new JDialog(mainFrame, "View/Edit Trip",
+//	               ModalityType.APPLICATION_MODAL);
+//	      
+//	      dialog.getContentPane().add(myPanel);
+//	      dialog.setPreferredSize(new Dimension(350,300));
+//	      dialog.pack();
+//	      dialog.setLocationRelativeTo(null);
+//	      dialog.setVisible(true);
+//	   }
+	   
+	   public void setToTrip(String decider){
+		   
+	   } 
 	
 	/**
 	 * 
@@ -310,20 +348,17 @@ public class AdminUI {
 		
 		}
 	
-		public DefaultListModel createModel(String tableName){
-			DefaultListModel df = new DefaultListModel();
+		public void createModel(String tableName){
+			df.removeAllElements();
 			Call<ResponseBody> retrieve;
 			Response<ResponseBody> result;
 			ArrayList<String> list = null;
 			String res = "";
 			if(tableName.equals("Trips")){
 				retrieve = query.retrieveAllTrips();
-				
-				
 			}
 			else{
 				retrieve = query.retrieveAllPassengers();
-				
 			}
 			
 			try {
@@ -338,8 +373,6 @@ public class AdminUI {
 			for(String s: list){
 				df.addElement(s);
 			}
-			
-			return df;
 		}
 		
 		public ArrayList<String> parseIntoList(String result){
@@ -493,11 +526,15 @@ public class AdminUI {
 			private JTextField barangay;
 			private JTextField city;
 			private JTextField zipCode;
+			private String oldMobileNumber;
+			String newMobileNumber;
 
 			/**
 			 * Create the panel.
 			 */
-			public UpdatePassengerPanel() {
+			public UpdatePassengerPanel(String _oldMobileNumber) {
+				oldMobileNumber=_oldMobileNumber;
+				System.out.println("OLD: " + oldMobileNumber);
 				setLayout(null);
 				
 				JLabel lblNewLabel = new JLabel("Full Name:");
@@ -510,16 +547,38 @@ public class AdminUI {
 				add(fullName);
 				fullName.setColumns(10);
 				
-				JButton btnSave = new JButton("SAVE");
-				btnSave.addActionListener(new ActionListener() {
+				JButton btnUpdate = new JButton("UPDATE");
+				btnUpdate.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
+						Call<ResponseBody> retrieve;
+						Response<ResponseBody> result;
+						retrieve = query.updateMobileNumber(oldMobileNumber, newMobileNumber);
+						try {
+							result = retrieve.execute();
+						} catch (IOException ex) {
+							// TODO Auto-generated catch block
+							ex.printStackTrace();
+						}
+						
+						dialog.dispose();
+						
 					}
 				});
-				btnSave.setBounds(67, 191, 198, 23);
-				add(btnSave);
+				btnUpdate.setBounds(67, 191, 198, 23);
+				add(btnUpdate);
 				
 				JButton btnCancel = new JButton("CANCEL");
 				btnCancel.setBounds(66, 219, 198, 23);
+				btnCancel.addActionListener(new ActionListener(){
+
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						dialog.dispose();
+						
+					}
+					
+				});
+
 				add(btnCancel);
 				
 				JLabel lblMobile = new JLabel("Mobile #:");
@@ -529,6 +588,33 @@ public class AdminUI {
 				mobileNumber = new JTextField();
 				mobileNumber.setColumns(10);
 				mobileNumber.setBounds(66, 32, 239, 20);
+				mobileNumber.getDocument().addDocumentListener(new DocumentListener(){
+
+					@Override
+					public void changedUpdate(DocumentEvent arg0) {
+						newMobileNumber = mobileNumber.getText();
+						System.out.println(newMobileNumber);
+						// TODO Auto-generated method stub
+						
+					}
+
+					@Override
+					public void insertUpdate(DocumentEvent arg0) {
+						newMobileNumber = mobileNumber.getText();
+						System.out.println(newMobileNumber);
+						// TODO Auto-generated method stub
+						
+					}
+
+					@Override
+					public void removeUpdate(DocumentEvent arg0) {
+						newMobileNumber = mobileNumber.getText();
+						System.out.println(newMobileNumber);
+						// TODO Auto-generated method stub
+						
+					}
+					
+				});
 				add(mobileNumber);
 				
 				JLabel lblPassword = new JLabel("Password:");
@@ -700,21 +786,19 @@ public class AdminUI {
 			}
 		}
 		
-		class TripListSelectionHandler implements ListSelectionListener {
-//			String decider = "";
-//			public void setDecider(String input){
-//				decider = input;
-//			}
-		    public void valueChanged(ListSelectionEvent e) {
-		        ListSelectionModel lsm = (ListSelectionModel)e.getSource();
-//		        
-		        	UpdateTripPanel myPanel =  new UpdateTripPanel();
-			        
-			        Call<ResponseBody> retrieve;
-					Response<ResponseBody> result;
-					retrieve = query.viewTripDetails((String)list.getModel().getElementAt(lsm.getMinSelectionIndex()));
-					System.out.println("LOOK AT ME: " + (String)list.getModel().getElementAt(lsm.getMinSelectionIndex()));
-					String res = "";
+//				
+		class TripMouseListener extends MouseAdapter{
+
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+			   UpdateTripPanel myPanel = new UpdateTripPanel();
+			   Call<ResponseBody> retrieve;
+			   Response<ResponseBody> result;
+			   String res = "";
+					   
+			   retrieve = query.viewTripDetails((String)list.getSelectedValue());
+		   
+					
 					try {
 						result = retrieve.execute();
 						res = result.body().string();
@@ -723,64 +807,60 @@ public class AdminUI {
 						ex.printStackTrace();
 					}
 					
-			   String[] temp = res.split(","); 
+				   String[] temp = res.split(",");
+				   myPanel.setValues(temp[0], temp[1], temp[2], temp[3], temp[4]);
+				   
+				   
+				   
 			        
 			        
-			   myPanel.setValues(temp[0], temp[1], temp[2], temp[3], temp[4]);
-			        
-			        
-		        
-		       dialog = new JDialog(mainFrame, "View/Edit Trip",
-                        ModalityType.APPLICATION_MODAL);
 		       
-               dialog.getContentPane().add(myPanel);
-               dialog.setPreferredSize(new Dimension(350,300));
-               dialog.pack();
-               dialog.setLocationRelativeTo(null);
-               dialog.setVisible(true);
-		        
-
-		    	}
+			       dialog = new JDialog(mainFrame, "View/Edit Trip",
+		                 ModalityType.APPLICATION_MODAL);
+			       
+		        dialog.getContentPane().add(myPanel);
+		        dialog.setPreferredSize(new Dimension(350,300));
+		        dialog.pack();
+		        dialog.setLocationRelativeTo(null);
+		        dialog.setVisible(true);
+				
+			}
+			
 		}
 		
-		class PassengerListSelectionHandler implements ListSelectionListener {
-		    public void valueChanged(ListSelectionEvent e) {
-		        ListSelectionModel lsm = (ListSelectionModel)e.getSource();
-//		        run Passenger panel
-		        
-		        UpdatePassengerPanel myPanel =  new UpdatePassengerPanel();
-//		        
-		        Call<ResponseBody> retrieve;
-				Response<ResponseBody> result;
-				retrieve = query.viewPassengerInfo((String)list.getModel().getElementAt(lsm.getMinSelectionIndex()));
-				System.out.println("LOOK AT ME: " + (String)list.getModel().getElementAt(lsm.getMinSelectionIndex()));
-				String res = "";
+		class PassengerMouseListener extends MouseAdapter{
+
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+			   Call<ResponseBody> retrieve;
+			   Response<ResponseBody> result;
+			   String res = "";
+			   System.out.println("SELECTED VALUE: " + (String)list.getSelectedValue());
+			   retrieve = query.viewPassengerInfo((String)list.getSelectedValue());
 				try {
 					result = retrieve.execute();
-					res = result.body().string();
+					res = result.body().string().trim();
 				} catch (IOException ex) {
 					// TODO Auto-generated catch block
 					ex.printStackTrace();
 				}
 				
 				String[] temp = res.split(",");
+				UpdatePassengerPanel myPanel =  new UpdatePassengerPanel(temp[2]);
 				myPanel.setValues(temp[0], temp[1], temp[2], temp[3], temp[4], temp[5], temp[6]);
-	        	
-//	        }
-	        
-	        dialog = new JDialog(mainFrame, "View/Edit Trip",
-                    ModalityType.APPLICATION_MODAL);
-	       
-           dialog.getContentPane().add(myPanel);
-           dialog.setPreferredSize(new Dimension(350,300));
-           dialog.pack();
-           dialog.setLocationRelativeTo(null);
-           dialog.setVisible(true);
-
-
-		    	}
+				dialog = new JDialog(mainFrame, "View/Edit Trip",
+		                 ModalityType.APPLICATION_MODAL);   
+		        dialog.getContentPane().add(myPanel);
+		        dialog.setPreferredSize(new Dimension(350,300));
+		        dialog.pack();
+		        dialog.setLocationRelativeTo(null);
+		        dialog.setVisible(true);
+				
+			}
+			
 		}
-
+		
+		
 }
 	
 	 interface AdminQuery{

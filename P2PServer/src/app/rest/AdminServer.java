@@ -44,7 +44,7 @@ public class AdminServer {
 	@Produces(MediaType.TEXT_PLAIN)
 	public String viewPassengerInfo(@FormParam("mobileNumber") String mobileNumber){
 		Passenger p = passengerRepo.findByMobileNumber(mobileNumber);
-		System.out.println(p.getFullName() + " yehey");
+//		System.out.println(p.getFullName() + " yehey");
 		return p.toString();
 		
 		
@@ -125,6 +125,7 @@ public class AdminServer {
 				result = result + pass.get(i).getMobileNumber() + ",";
 			}
 		}
+		//System.out.println(result);
 		return result;
 	}
 	

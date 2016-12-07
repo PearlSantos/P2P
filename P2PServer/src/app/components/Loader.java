@@ -172,6 +172,10 @@ public class Loader {
 				}
 			}
 //			tester code
+//			String mobileNumber = "9213465469";
+//			
+//			Passenger p = passengerRepo.findByMobileNumber(mobileNumber);
+//			System.out.println(p.toString());
 //			
 //			
 	}

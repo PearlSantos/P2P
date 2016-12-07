@@ -107,7 +107,7 @@ public class Passenger {
 	public String toString() {
 		return fullName + "," + password + ","
 				+ mobileNumber + "," + emailAddress + "," + barangay + "," + city
-				+ "," + zipCode + "," + tripAssigned.getTripName();
+				+ "," + zipCode + "," + getTripAssignedName();
 	}
 	
 	
